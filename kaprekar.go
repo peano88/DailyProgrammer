@@ -10,10 +10,10 @@ const (
 	base = 10
 )
 
-func FindKrat(min, max int, c chan int) {
+func FindKaprekar(min, max int, c chan int) {
 	control := make(chan bool)
 	for i := min; i <= max; i++ {
-		go isKrat(i, c, control)
+		go isKaprekar(i, c, control)
 	}
 
 	for i := min; i <= max; i++ {
@@ -27,7 +27,7 @@ func FindKrat(min, max int, c chan int) {
 	//close(c)
 }
 
-func isKrat(candidate int, c chan int, control chan bool) {
+func isKaprekar(candidate int, c chan int, control chan bool) {
 
 	squaredCandidate := math.Pow(float64(candidate), 2)
 	var i float64
@@ -61,5 +61,5 @@ func main() {
 
 	c := make(chan int)
 
-	FindKrat(*min, *max, c)
+	FindKaprekar(*min, *max, c)
 }
