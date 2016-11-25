@@ -1,7 +1,7 @@
 class Rule
 
     def initialize(colors)
-        @consequence_color = colors
+        @color_list = colors
     end
 
     def accept_next(color)
@@ -11,21 +11,20 @@ end
 class AllowCut < Rule
 
     def accept_next(color)
-        @consequence_color.include?(color)
+        @color_list.include?(color)
     end
 end
 
 class ForbidCut < Rule
 
     def accept_next(color)
-        !@consequence_color.include?(color)
+        !@color_list.include?(color)
     end
 end
 
 class RuleSet
 
     def initialize
-        @rules = Hash.new
         @rules = {w: ForbidCut.new( [:w, :b]),
                   r: AllowCut.new([:g]),
                   b: ForbidCut.new([:w,:g,:o]),
@@ -46,5 +45,6 @@ class RuleSet
     end
 end
 
-RuleSet.new.accept_sequence( ["w","r","g","w"])
-RuleSet.new.accept_sequence( ["w","o","g","w"])
+rules = RuleSet.new
+rules.accept_sequence( ["w","r","g","w"])
+rules.accept_sequence( ["w","o","g","w"])
